@@ -87,6 +87,9 @@
                   networking.wireless.enable = lib.mkForce false;
                   networking.networkmanager.enable = true;
 
+                  # Enable VMware guest tools for clipboard sharing in live environment
+                  virtualisation.vmware.guest.enable = true;
+
                   system.nixos-generate-config.flake = ''
                     {
                       inputs = {
