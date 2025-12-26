@@ -98,7 +98,8 @@
                   boot.initrd.availableKernelModules = [ "9p" "9pnet_virtio" "virtio_pci" "virtio_blk" ];
 
                   # ===== ZFS Support =====
-                  boot.supportedFilesystems = [ "zfs" ];
+                  # Use mkForce to override latest-kernel specialisation which disables ZFS
+                  boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" "zfs" ];
                   # hostId is required for ZFS - generate a random one for the live ISO
                   networking.hostId = "8425e349";
 
