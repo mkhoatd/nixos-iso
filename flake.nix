@@ -98,6 +98,8 @@
                   boot.initrd.availableKernelModules = [ "9p" "9pnet_virtio" "virtio_pci" "virtio_blk" ];
 
                   # ===== ZFS Support =====
+                  # Pin to kernel 6.17 (ZFS 2.4.0 supports up to 6.18, but nixpkgs may still be on 2.3.x)
+                  boot.kernelPackages = pkgs.linuxPackages_6_17;
                   # Use mkForce to override latest-kernel specialisation which disables ZFS
                   boot.supportedFilesystems = lib.mkForce [ "btrfs" "reiserfs" "vfat" "f2fs" "xfs" "ntfs" "cifs" "zfs" ];
                   # hostId is required for ZFS - generate a random one for the live ISO
