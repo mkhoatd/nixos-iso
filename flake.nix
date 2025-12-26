@@ -87,7 +87,22 @@
                   networking.wireless.enable = lib.mkForce false;
                   networking.networkmanager.enable = true;
 
-                  # Enable VMware guest tools for clipboard sharing in live environment
+                  # ===== UTM/QEMU Guest Support =====
+
+                  # SPICE guest tools for clipboard, display resize, etc.
+                  services.spice-vdagentd.enable = true;
+                  services.qemuGuest.enable = true;
+
+                  # VirtFS (9p) support for shared folders
+                  boot.kernelModules = [ "9p" "9pnet_virtio" "virtio_pci" "virtio_blk" ];
+                  boot.initrd.availableKernelModules = [ "9p" "9pnet_virtio" "virtio_pci" "virtio_blk" ];
+
+                  # ===== ZFS Support =====
+                  boot.supportedFilesystems = [ "zfs" ];
+                  # hostId is required for ZFS - generate a random one for the live ISO
+                  networking.hostId = "8425e349";
+
+                  # ===== VMware Guest Support (kept for compatibility) =====
                   virtualisation.vmware.guest.enable = true;
 
                   system.nixos-generate-config.flake = ''
